@@ -28,6 +28,8 @@ ConsoleWindow *ConsoleWindowCreate();
  */
 extern void ConsoleWindowUpdateProc(ConsoleWindow *, const float);
 
+extern void ConsoleWindowMouseEventProc(ConsoleWindow *, const MOUSE_EVENT_RECORD *);
+
 /**
  * @brief ConsoleWindowProc - window procedure
  * @param wnd - window object

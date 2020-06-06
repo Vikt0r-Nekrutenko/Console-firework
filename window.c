@@ -8,6 +8,13 @@ ConsoleWindow *ConsoleWindowCreate()
     wnd->_output = GetStdHandle(STD_OUTPUT_HANDLE);
     wnd->_input = GetStdHandle(STD_INPUT_HANDLE);
 
+
+    CONSOLE_FONT_INFOEX cfiex;
+    cfiex.cbSize = sizeof(CONSOLE_FONT_INFOEX);
+    GetCurrentConsoleFontEx(wnd->_output, FALSE, &cfiex);
+    cfiex.dwFontSize.X = cfiex.dwFontSize.Y = 8;
+    SetCurrentConsoleFontEx(wnd->_output, FALSE, &cfiex);
+
     ConsoleWindowEnableFullscreen(wnd);
 
     return wnd;
@@ -45,7 +52,9 @@ int ConsoleWindowProc(ConsoleWindow *wnd)
             {
                 switch (ir[i].EventType)
                 {
-                case MOUSE_EVENT: break;
+                case MOUSE_EVENT:
+                    ConsoleWindowMouseEventProc(wnd, &ir[i].Event.MouseEvent);
+                    break;
                 case KEY_EVENT:
                     if (ir[i].Event.KeyEvent.wVirtualKeyCode == VK_ESCAPE)
                     {
@@ -83,6 +92,7 @@ void ConsoleWindowEnableFullscreen(ConsoleWindow *wnd)
     COORD wnd_size = wnd->_size;
     wnd_size.X += 10; wnd_size.Y += 10;
     ConsoleWindowSetSize(wnd, wnd_size.X, wnd_size.Y);
-    SetWindowLongPtrA(wnd->_wnd, GWL_STYLE, WS_CHILD);
-    SetWindowPos(wnd->_wnd, HWND_TOPMOST, -2, -2, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+//    SetWindowLongPtrA(wnd->_wnd, GWL_STYLE, WS_CHILD);
+//    SetWindowPos(wnd->_wnd, HWND_TOPMOST, -2, -2, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+    SetWindowPos(wnd->_wnd, HWND_TOPMOST, -10, -32, 0, 0, SWP_NOSIZE | SWP_SHOWWINDOW);
 }

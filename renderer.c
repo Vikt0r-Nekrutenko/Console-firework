@@ -19,8 +19,9 @@ void ConsoleRendererDelete(ConsoleRenderer *rend)
 void ConsoleRendererClear(ConsoleRenderer *rend)
 {
     for (int i = rend->_size.X * rend->_size.Y - 1; i >= 0; --i) {
-        rend->_array[i].Char.AsciiChar = ' ';
-        rend->_array[i].Attributes = FB_BLACK;
+        CHAR_INFO *pix = &rend->_array[i];
+        pix->Char.AsciiChar = ' ';
+        pix->Attributes = FB_BLACK;
     }
 }
 
@@ -34,6 +35,7 @@ void ConsoleRendererPutPixel(ConsoleRenderer *rend, const vector2d pos, const ui
 {
     int indx = rend->_size.X * (int)pos._y + (int)pos._x;
     assert(indx < rend->_size.X * rend->_size.Y && indx >= 0);
-    rend->_array[indx].Char.AsciiChar = sym;
-    rend->_array[indx].Attributes = col;
+    CHAR_INFO *pix = &rend->_array[indx];
+    pix->Char.AsciiChar = sym;
+    pix->Attributes = col;
 }
