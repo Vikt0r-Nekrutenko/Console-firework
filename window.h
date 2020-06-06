@@ -17,38 +17,16 @@ typedef struct _ConsoleWindow
     COORD  _size;
 } ConsoleWindow;
 
-/**
- * @brief ConsoleWindowCreate new window
- * @return created window
- */
 ConsoleWindow *ConsoleWindowCreate();
 
-/**
- * @brief ConsoleWindowUpdateProc - update window every iterations
- */
 extern void ConsoleWindowUpdateProc(ConsoleWindow *, const float);
 
 extern void ConsoleWindowMouseEventProc(ConsoleWindow *, const MOUSE_EVENT_RECORD *);
 
-/**
- * @brief ConsoleWindowProc - window procedure
- * @param wnd - window object
- * @return code
- */
 int ConsoleWindowProc(ConsoleWindow *wnd);
 
-/**
- * @brief ConsoleWindowSetSize - resize window
- * @param wnd - window object
- * @param width - width of window
- * @param height - height of window
- */
 void ConsoleWindowSetSize(ConsoleWindow *wnd, short width, short height);
 
-/**
- * @brief ConsoleWindowEnableFullscreen - enable fullscreen mode
- * @param wnd - window object
- */
 void ConsoleWindowEnableFullscreen(ConsoleWindow *wnd);
 
 
